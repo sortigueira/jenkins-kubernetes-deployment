@@ -6,6 +6,8 @@ pipeline {
     BRANCH_NAME = "main"
   }
 
+  agent any
+  
   stages {
 
     stage('Checkout Source') {
