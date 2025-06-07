@@ -3,6 +3,7 @@ pipeline {
   environment {
     dockerimagename = "sortigueira/react-app"
     dockerImage = ""
+    BRANCH_NAME = "main"
   }
 
   agent any
