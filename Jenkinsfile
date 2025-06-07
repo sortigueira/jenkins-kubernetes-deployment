@@ -6,8 +6,12 @@ pipeline {
     BRANCH_NAME = "main"
   }
 
-  agent any
-
+    agent {
+        kubernetes {
+            cloud 'kubernetes-cloud' 
+        }
+    }
+    
   stages {
 
     stage('Checkout Source') {
