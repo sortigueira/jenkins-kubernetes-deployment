@@ -6,7 +6,9 @@ pipeline {
     BRANCH_NAME = "main"
   }
 
-  agent any
+  agent {
+      label 'docker-builder' 
+  }
   
   stages {
 
@@ -45,6 +47,19 @@ pipeline {
       }
     }
 
+    stage('Deploying React.js container to Kubernetes') {
+      steps {
+        script {
+          // Si kubectl no está en el mismo contenedor que docker, podrías necesitar otro `agent` o `container`
+          // dependiendo de cómo estructures tus Pod Templates.
+          // Por ejemplo, si tu Pod Template 'docker-builder' también incluye kubectl:
+          kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
+        }
+      }
+    }
+
   }
+
+
 
 }
