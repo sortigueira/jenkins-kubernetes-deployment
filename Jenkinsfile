@@ -2,7 +2,6 @@ pipeline {
 
   environment {
     dockerimagename = "sortigueira/react-app"
-    dockerImage = ""
     BRANCH_NAME = "main"
   }
 
@@ -21,7 +20,9 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          dockerImage = docker.build dockerimagename
+          container('docker-cli') {
+            sh "docker build -t ${dockerimagename}:latest ."
+          }
         }
       }
     }
