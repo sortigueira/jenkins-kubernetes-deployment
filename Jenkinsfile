@@ -35,7 +35,7 @@ pipeline {
         script {
           container('docker-cli') { 
             withCredentials([usernamePassword(credentialsId: registryCredential, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-              sh "docker login -u \"$DOCKER_USERNAME\" -p \"$DOCKER_PASSWORD\" https://index.docker.io/v2"
+              sh "docker login -u \"$DOCKER_USERNAME\" -p \"$DOCKER_PASSWORD\""
               sh "docker push ${dockerimagename}:latest"
             }
           } 
