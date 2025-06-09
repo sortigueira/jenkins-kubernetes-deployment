@@ -33,11 +33,12 @@ pipeline {
           }
       steps{
         script {
-          container('docker-cli') {
-            docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-              dockerImage.push("latest")
+          container('docker-cli') { 
+            withCredentials([usernamePassword(credentialsId: registryCredential, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+              sh "echo \"$DOCKER_PASSWORD\" | docker login -u \"$DOCKER_USERNAME\" --password-stdin https://registry.hub.docker.com"
+              sh "docker push ${dockerimagename}:latest"
             }
-          }  
+          } 
         }
       }
     }
