@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: service #The name of the Kubernetes Service to be created in the Kubernetes cluster
-  namespace: devops-tools
+  namespace: react-app
 spec:
   selector:
     app: react-app
