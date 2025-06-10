@@ -45,7 +45,6 @@ pipeline {
     stage('Deploy to Kubernetes') {
       steps {
         container(name: 'kubectl-cli', shell: '/bin/sh') {
-            sh "echo $KUBECONFIG > /.kube/config"
             sh "kubectl apply -f deployment.yaml"
             sh "kubectl apply -f service.yaml"
         }
