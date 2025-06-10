@@ -42,15 +42,12 @@ pipeline {
         }
       }
     }
-
-    stage('Deploying React.js container to Kubernetes') {
+    stage('Deploy to Kubernetes') {
       steps {
-        script {
-          container('kubectl-cli') {
-            sh 'kubectl apply -f deployment.yaml'
-            sh 'kubectl apply -f service.yaml'
-          }
-          
+        container(name: 'kubectl-cli', shell: '/bin/sh') {
+            sh "echo $KUBECONFIG > /.kube/config"
+            sh "kubectl apply -f deployment.yaml"
+            sh "kubectl apply -f service.yaml"
         }
       }
     }
